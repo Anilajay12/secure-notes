@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: secure-notes-prod
+  security:
+    user:
+      name: prod
+      password: pass
+
+server:
+  port: 9000
