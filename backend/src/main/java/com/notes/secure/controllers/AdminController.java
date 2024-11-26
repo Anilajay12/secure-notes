@@ -21,25 +21,25 @@ import java.util.List;
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
 @RestController
-
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController {
 
     private final UserService userService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     @GetMapping("/getUsers")
     public ResponseEntity<List<AppUser>> users(){
         return ResponseEntity.ok(userService.fetchAllUsers());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     @PutMapping("/update-role")
     public String updateUserRole(@RequestParam Long userId, @RequestParam String userName){
         boolean updateUserRole = userService.updateUserRoleById(userId, userName);
         return updateUserRole ? "Role Updated Successfully" : "Unable to update at this moment";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/user/{id}")
     public AppUser findUserDetailsById(@PathVariable Long id){
         return userService.fetchUserDetailsById(id);

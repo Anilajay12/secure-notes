@@ -17,17 +17,17 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(
-        jsr250Enabled = true,
-        securedEnabled = true,
-        prePostEnabled = true
-)
+//@EnableMethodSecurity(
+//        jsr250Enabled = true,
+//        securedEnabled = true,
+//        prePostEnabled = true
+//)
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests((req) ->
-                req.anyRequest().authenticated());
+                req.requestMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated());
         http.csrf(AbstractHttpConfigurer::disable);
         http.httpBasic(Customizer.withDefaults());
 //        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
